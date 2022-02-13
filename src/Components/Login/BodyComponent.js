@@ -1,28 +1,74 @@
-import { Box, Center, VStack, FormControl, FormLabel, Input,Button} from '@chakra-ui/react'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import {
+  Box,
+  Center,
+  VStack,
+  FormControl,
+  FormLabel,
+  Input,
+  Button,
+} from "@chakra-ui/react";
 
 function LoginBodyComponent() {
-    return (
-      <Center>
-        <Box bg={'blackAlpha.100'} w='100%' p={10} color='black' borderRadius='lg'>
-            <VStack>
-            <FormControl>
-              <FormLabel htmlFor='user'>Username or Email Address</FormLabel>
-              <Input id='user' type='text' bg='white' />
-              <FormLabel htmlFor='password'>Password</FormLabel>
-              <Input id='password' type='password' bg='white' />
-            </FormControl>
-            <Button colorScheme='teal' variant='solid' isFullWidth={true}>
-              Sing In
-            </Button>
-            <Button colorScheme='teal' variant='outline' isFullWidth={true}  bg='white' >
-              Sing Up
-            </Button>
-            </VStack>
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
 
-        </Box>
-      </Center>
-    );
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (
+      localStorage.getItem("user") === user &&
+      localStorage.getItem("password") === password
+    ) {
+      localStorage.setItem("session", "true");
+      navigate("/Home");
+    }
   };
-  
-  export default LoginBodyComponent;
-  
+  return (
+    <Center>
+      <Box bg={"orange"} w="100%" p={10} color="black" borderRadius="lg">
+        <VStack>
+          <FormControl>
+            <FormLabel htmlFor="use">Username or Email Address</FormLabel>
+            <Input
+              id="use"
+              type="text"
+              bg="white"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+            />
+            <FormLabel htmlFor="pass">Password</FormLabel>
+            <Input
+              id="pass"
+              type="password"
+              bg="white"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FormControl>
+          <Button
+            color={"white"}
+            bg="red"
+            variant="solid"
+            isFullWidth={true}
+            onClick={() => handleClick()}
+          >
+            Iniciar Sesion
+          </Button>
+          <Button
+            color={"white"}
+            bg="orange.300"
+            variant="outline"
+            isFullWidth={true}
+          >
+            Registrate
+          </Button>
+        </VStack>
+      </Box>
+    </Center>
+  );
+}
+
+export default LoginBodyComponent;
