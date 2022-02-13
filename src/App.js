@@ -1,26 +1,21 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./Pages/Login.js";
 import Home from "./Pages/Home.js";
+import Reserva from "./Pages/Reserva.js";
 
 function App() {
   return (
-   /* <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>*/
-    
-    <Home>
-    </Home>
+    <Router>
+      <Routes>
+        <Route path="/">
+          <Route index element={<Login />}></Route>
+          <Route path="/*" element={<h1>Error</h1>}></Route>
+          <Route path="/Home" element={<Home />}></Route>
+          <Route path="/Reserva" element={<Reserva />}></Route>
+          <Route path="/Login" element={<Login />}></Route>
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 
